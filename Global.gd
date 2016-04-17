@@ -12,12 +12,14 @@ var rebels_tiles = 0;
 var turns = 0;
 var army_health = 2;
 var tiles_owned = 1;
+var music_time = 0;
 
 func _ready():
 	var root = get_tree().get_root();
 	current_scene = root.get_child(root.get_child_count() - 1);
 
 func _start():
+	music_time = get_node("/root/Title/StreamPlayer").get_pos();
 	index_list = 0;
 	moves = 1;
 	expands = 1;
@@ -36,9 +38,9 @@ func _start_real():
 	var map = preload("res://scenes/levels/Level1.scn");
 	current_scene = map.instance();
 	get_tree().get_root().add_child(current_scene);
-	get_tree().set_current_scene(current_scene);
 
 func _gameover():
+	music_time = 0;
 	call_deferred("_go_gameover");
 
 func _go_gameover():
